@@ -1,8 +1,11 @@
-﻿namespace Database
+﻿using ApplicationLogic.Interfaces;
+using ApplicationLogic.Models;
+
+namespace Database
 {
-    public class Class1
+    public class ISWIFT_MT799_WebApi_SQLiteDataProvider : ISWIFT_MT799_WebApiDataProvider
     {
-        public Class1()
+        public ISWIFT_MT799_WebApi_SQLiteDataProvider()
         {
             //using (var connection = new SqliteConnection("Data Source=hello.db"))
             //{
@@ -76,6 +79,16 @@
             //
             //// Clean up
             //File.Delete("hello.db");
+        }
+
+        public ICollection<SWIFT_MT799_Message_Model> GetMessagesFromSpecificSenderBank(string senderBankCode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveMessageToDatabase(SWIFT_MT799_Message_Model message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

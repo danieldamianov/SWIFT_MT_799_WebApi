@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWIFT_MT799_Logic", "SWIFT_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWIFT_MT799_WebApi", "SWIFT_MT799_WebApi\SWIFT_MT799_WebApi.csproj", "{3B270167-6811-497C-BB54-A56142C74A0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationLogic", "ApplicationLogic\ApplicationLogic.csproj", "{AD04E9AC-A3FE-443F-BC52-CF98C0139070}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3B270167-6811-497C-BB54-A56142C74A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B270167-6811-497C-BB54-A56142C74A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B270167-6811-497C-BB54-A56142C74A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD04E9AC-A3FE-443F-BC52-CF98C0139070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD04E9AC-A3FE-443F-BC52-CF98C0139070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD04E9AC-A3FE-443F-BC52-CF98C0139070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD04E9AC-A3FE-443F-BC52-CF98C0139070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
