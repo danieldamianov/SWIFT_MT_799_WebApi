@@ -1,6 +1,8 @@
 
 using ApplicationLogic.Interfaces;
+using ApplicationLogic;
 using SWIFT_MT799_Logic;
+using System.Reflection;
 
 namespace SWIFT_MT799_WebApi
 {
@@ -51,7 +53,11 @@ namespace SWIFT_MT799_WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>();
+
+            // TODO:: CHECK IF THIS WORKS FINE
+            ApplicationServiceRegistration.AddApplication(builder.Services);
+            // builder.Services.AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>();
+            // TODO:: AddAplication
         }
     }
 }
