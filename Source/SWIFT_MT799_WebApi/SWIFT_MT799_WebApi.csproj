@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationLogic\ApplicationLogic.csproj" />
     <ProjectReference Include="..\SWIFT_MT799_Logic\SWIFT_MT799_Logic.csproj" />
   </ItemGroup>
 

@@ -81,12 +81,17 @@ namespace Database
             //File.Delete("hello.db");
         }
 
+        public bool EnsureDataStorageExists()
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<SWIFT_MT799_Message_Model> GetMessagesFromSpecificSenderBank(string senderBankCode)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveMessageToDatabase(SWIFT_MT799_Message_Model message)
+        public bool SaveMessageToDatabase(SWIFT_MT799_Message_Model message)
         {
             throw new NotImplementedException();
         }

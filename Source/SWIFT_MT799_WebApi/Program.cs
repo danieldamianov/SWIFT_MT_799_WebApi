@@ -1,24 +1,23 @@
 
+using ApplicationLogic.Interfaces;
 using SWIFT_MT799_Logic;
 
 namespace SWIFT_MT799_WebApi
 {
     public class Program
     {
+        // TODO:: ADD logging
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>();
-
+            ConfigureServices(builder);
 
             var app = builder.Build();
+
+            EnsureDataStorageExistence(app);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -35,6 +34,24 @@ namespace SWIFT_MT799_WebApi
             app.MapControllers();
 
             app.Run();
+        }
+
+        private static void EnsureDataStorageExistence(WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var myService = scope.ServiceProvider.GetRequiredService<ISWIFT_MT799_WebApiDataProvider>();
+                myService.EnsureDataStorageExists();
+            }
+        }
+
+        private static void ConfigureServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>();
         }
     }
 }
