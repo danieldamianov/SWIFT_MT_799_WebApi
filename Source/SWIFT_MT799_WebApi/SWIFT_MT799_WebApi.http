@@ -1,0 +1,6 @@
+@SWIFT_MT799_WebApi_HostAddress = http://localhost:5211
+
+GET {{SWIFT_MT799_WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
