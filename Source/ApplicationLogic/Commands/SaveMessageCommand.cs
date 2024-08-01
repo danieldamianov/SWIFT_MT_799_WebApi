@@ -1,6 +1,8 @@
 ﻿using ApplicationLogic.Interfaces;
 using ApplicationLogic.Models;
+using AutoMapper;
 using MediatR;
+using SWIFT_MT799_Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,9 @@ namespace ApplicationLogic.Commands
 {
     public class SaveMessageCommand : IRequest<bool>
     {
-        private readonly SWIFT_MT799_Message_Model message;
+        private readonly string message;
 
-        public SaveMessageCommand(SWIFT_MT799_Message_Model message)
+        public SaveMessageCommand(string message)
         {
             this.message = message;
         }
@@ -21,15 +23,22 @@ namespace ApplicationLogic.Commands
         public class SaveMessageCommandHandler : IRequestHandler<SaveMessageCommand, bool>
         {
             private readonly ISWIFT_MT799_WebApiDataProvider dataProvider;
+            private readonly ISwiftMT799Parser parser;
+            private readonly IMapper mapper;
 
-            public SaveMessageCommandHandler(ISWIFT_MT799_WebApiDataProvider dataProvider)
+            public SaveMessageCommandHandler(ISWIFT_MT799_WebApiDataProvider dataProvider,
+                ISwiftMT799Parser parser,
+                IMapper mapper)
             {
                 this.dataProvider = dataProvider;
+                this.parser = parser;
+                this.mapper = mapper;
             }
 
             public async Task<bool> Handle(SaveMessageCommand request, CancellationToken cancellationToken)
             {
-                await dataProvider.SaveMessageAsync(request.message); 
+                await dataProvider.SaveMessageAsync(this.mapper
+                    .Map<SWIFT_MT799_Message_Model>(this.parser.ParseSwiftMT799Message(request.message))); 
 
                 return true;
             }

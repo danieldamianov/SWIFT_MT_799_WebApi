@@ -1,5 +1,7 @@
-﻿using MediatR;
+﻿using ApplicationLogic.Interfaces;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using SWIFT_MT799_Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,8 @@ namespace ApplicationLogic
             services
                 // TODO:: .AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
-                // TODO:: CHECK DEPENDENCIES AGAIN ! SHOULD THIS BE ADDED HERE
-                // Will the Parsing logic be executed here.
-                // .AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>();
+                .AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>()
+                .AddAutoMapper(typeof(MappingProfile)); ;
         }
     }
 }

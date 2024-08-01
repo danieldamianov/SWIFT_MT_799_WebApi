@@ -3,6 +3,7 @@ using ApplicationLogic.Interfaces;
 using ApplicationLogic;
 using SWIFT_MT799_Logic;
 using System.Reflection;
+using Database;
 
 namespace SWIFT_MT799_WebApi
 {
@@ -56,6 +57,7 @@ namespace SWIFT_MT799_WebApi
 
             // TODO:: CHECK IF THIS WORKS FINE
             ApplicationServiceRegistration.AddApplication(builder.Services);
+            DatabaseServiceRegistration.AddDatabase(builder.Services);
             // builder.Services.AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>();
             // TODO:: AddAplication
         }

@@ -3,9 +3,9 @@ using ApplicationLogic.Models;
 
 namespace Database
 {
-    public class ISWIFT_MT799_WebApi_SQLiteDataProvider : ISWIFT_MT799_WebApiDataProvider
+    public class SWIFT_MT799_WebApi_SQLiteDataProvider : ISWIFT_MT799_WebApiDataProvider
     {
-        public ISWIFT_MT799_WebApi_SQLiteDataProvider()
+        public SWIFT_MT799_WebApi_SQLiteDataProvider()
         {
             //using (var connection = new SqliteConnection("Data Source=hello.db"))
             //{
