@@ -11,8 +11,9 @@ namespace ApplicationLogic.Interfaces
     {
         bool EnsureDataStorageExists();
         
-        bool SaveMessageToDatabase(SWIFT_MT799_Message_Model message);
+        Task<bool> SaveMessageAsync(SWIFT_MT799_Message_Model message);
 
-        ICollection<SWIFT_MT799_Message_Model> GetMessagesFromSpecificSenderBank(string senderBankCode);
+        Task<ICollection<SWIFT_MT799_Message_Model>> GetMessagesFromSpecificSenderBankAsync
+            (string senderBankCode);
     }
 }

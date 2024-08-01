@@ -29,7 +29,7 @@ namespace ApplicationLogic.Commands
 
             public async Task<bool> Handle(SaveMessageCommand request, CancellationToken cancellationToken)
             {
-                await dataProvider.SaveMessageToDatabase(request.message); 
+                await dataProvider.SaveMessageAsync(request.message); 
 
                 return true;
             }

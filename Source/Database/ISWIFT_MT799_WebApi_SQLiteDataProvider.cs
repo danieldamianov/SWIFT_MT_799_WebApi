@@ -83,17 +83,29 @@ namespace Database
 
         public bool EnsureDataStorageExists()
         {
-            throw new NotImplementedException();
+            // TODO:: implement correctly
+            return true;
         }
 
-        public ICollection<SWIFT_MT799_Message_Model> GetMessagesFromSpecificSenderBank(string senderBankCode)
+        public async Task<ICollection<SWIFT_MT799_Message_Model>> GetMessagesFromSpecificSenderBankAsync(string senderBankCode)
         {
-            throw new NotImplementedException();
+            // TODO: make it asychronous
+            // TODO: implement correctly
+            ICollection<SWIFT_MT799_Message_Model> result = new List<SWIFT_MT799_Message_Model>();
+
+            result.Add(new SWIFT_MT799_Message_Model()
+            {
+                ApplicationID = "appid",
+            });
+
+            return result;
         }
 
-        public bool SaveMessageToDatabase(SWIFT_MT799_Message_Model message)
+        public async Task<bool> SaveMessageAsync(SWIFT_MT799_Message_Model message)
         {
-            throw new NotImplementedException();
+            // TODO: make it asychronous
+            // TODO: implement correctly
+            return true;
         }
     }
 }
