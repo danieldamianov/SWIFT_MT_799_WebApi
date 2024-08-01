@@ -1,5 +1,7 @@
 ﻿using ApplicationLogic.Interfaces;
 using ApplicationLogic.Models;
+using Microsoft.Data.Sqlite;
+using System.Reflection;
 
 namespace Database
 {
@@ -83,7 +85,17 @@ namespace Database
 
         public bool EnsureDataStorageExists()
         {
-            // TODO:: implement correctly
+            if (!File.Exists(Constants.FILE_PATH))
+            {
+                using (var connection = new SqliteConnection($"Data Source={Constants.FILE_PATH}"))
+                {
+                    connection.Open();
+
+                    var createTable = new SqliteCommand(Constants.CREATE_TABLE_COMMAND, connection);
+                    createTable.ExecuteNonQuery();
+                }
+            }
+
             return true;
         }
 
@@ -103,9 +115,23 @@ namespace Database
 
         public async Task<bool> SaveMessageAsync(SWIFT_MT799_Message_Model message)
         {
-            // TODO: make it asychronous
-            // TODO: implement correctly
-            return true;
+            using (var connection = new SqliteConnection($"Data Source={Constants.FILE_PATH}"))
+            {
+                await connection.OpenAsync();
+
+                var insertCommand = connection.CreateCommand();
+                insertCommand.CommandText = Constants.INSERT_MESSAGE_COMMAND;
+
+                foreach (PropertyInfo property in typeof(SWIFT_MT799_Message_Model).GetProperties())
+                {
+                    string? value = (string?)property.GetValue(message);
+                    insertCommand.Parameters.AddWithValue($"@{property.Name}", value);
+                }
+
+                var result = await insertCommand.ExecuteNonQueryAsync();
+
+                return result > 0;
+            }
         }
     }
 }
