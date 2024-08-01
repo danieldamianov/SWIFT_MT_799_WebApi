@@ -48,9 +48,8 @@ namespace ApplicationLogic.Commands
                 }
 
                 bool operationResult = await dataProvider.SaveMessageAsync(this.mapper
-                    .Map<SWIFT_MT799_Message_Model>(this.parser.ParseSwiftMT799Message(request.message)));
+                    .Map<SWIFT_MT799_Message_Model>(message));
 
-                // TODO:: RETURN SOME IACTION RESULT
                 return operationResult;
             }
         }
