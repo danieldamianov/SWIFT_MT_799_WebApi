@@ -37,10 +37,21 @@ namespace ApplicationLogic.Commands
 
             public async Task<bool> Handle(SaveMessageCommand request, CancellationToken cancellationToken)
             {
-                await dataProvider.SaveMessageAsync(this.mapper
-                    .Map<SWIFT_MT799_Message_Model>(this.parser.ParseSwiftMT799Message(request.message))); 
+                SwiftMT799Message message;
+                try
+                {
+                    message = this.parser.ParseSwiftMT799Message(request.message);
+                }
+                catch (ArgumentException)
+                {
+                    return false;
+                }
 
-                return true;
+                bool operationResult = await dataProvider.SaveMessageAsync(this.mapper
+                    .Map<SWIFT_MT799_Message_Model>(this.parser.ParseSwiftMT799Message(request.message)));
+
+                // TODO:: RETURN SOME IACTION RESULT
+                return operationResult;
             }
         }
     }
