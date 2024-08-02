@@ -4,6 +4,7 @@ using ApplicationLogic;
 using SWIFT_MT799_Logic;
 using System.Reflection;
 using Database;
+using Microsoft.OpenApi.Models;
 
 namespace SWIFT_MT799_WebApi
 {
@@ -53,7 +54,10 @@ namespace SWIFT_MT799_WebApi
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.OperationFilter<TextPlainOperationFilter>(); // Register the custom filter
+            });
 
             // TODO:: CHECK IF THIS WORKS FINE
             ApplicationServiceRegistration.AddApplication(builder.Services);

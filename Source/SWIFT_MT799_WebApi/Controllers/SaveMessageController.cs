@@ -20,15 +20,16 @@ namespace SWIFT_MT799_WebApi.Controllers
         }
 
         [HttpPost(Name = "SaveMessage")]
-        public async Task<bool> Save(string message)
+        [Consumes("text/plain")]
+        public async Task<bool> Save()
         {
             // TODO::
-            //string message;
-            //
-            //using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
-            //{
-            //    message = await reader.ReadToEndAsync();
-            //}
+            string message;
+            
+            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                message = await reader.ReadToEndAsync();
+            }
 
             bool respone = await this.mediator.Send(new SaveMessageCommand(message));
 
