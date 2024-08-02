@@ -103,12 +103,41 @@ namespace Database
         {
             // TODO: make it asychronous
             // TODO: implement correctly
-            ICollection<SWIFT_MT799_Message_Model> result = new List<SWIFT_MT799_Message_Model>();
+            var result = new List<SWIFT_MT799_Message_Model>();
 
-            result.Add(new SWIFT_MT799_Message_Model()
+            using (var connection = new SqliteConnection($"Data Source={Constants.FILE_PATH}"))
             {
-                ApplicationID = "appid",
-            });
+                await connection.OpenAsync();
+
+                var queryCommand = connection.CreateCommand();
+                queryCommand.CommandText = @"
+                    SELECT ApplicationID, ServiceID, SenderBankCode, SenderCountryCode, SenderLocationCode,
+                           SenderLogicalTerminal, SenderSessionNumber, SenderSequenceNumber, InputTime,
+                           ReceiverBankCode, ReceiverCountryCode, ReceiverLocationCode, ReceiverLogicalTerminal,
+                           ReceiverBranchCode, MessageInputReference, MessagePriority, TransactionReferenceNumber,
+                           RelatedReference, NarrativeText, MessageAuthenticationCode, Checksum
+                    FROM SWIFT_MT799_Messages
+                    WHERE SenderBankCode = @SenderBankCode";
+
+                queryCommand.Parameters.AddWithValue("@SenderBankCode", senderBankCode);
+
+                using (var reader = await queryCommand.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        var message = new SWIFT_MT799_Message_Model();
+
+                        foreach (PropertyInfo property in typeof(SWIFT_MT799_Message_Model).GetProperties())
+                        {
+                            var columnName = property.Name;
+                            var value = reader[columnName];
+                            property.SetValue(message, Convert.ChangeType(value, property.PropertyType));
+                        }
+
+                        result.Add(message);
+                    }
+                }
+            }
 
             return result;
         }
