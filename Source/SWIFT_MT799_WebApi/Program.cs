@@ -5,6 +5,8 @@ using SWIFT_MT799_Logic;
 using System.Reflection;
 using Database;
 using Microsoft.OpenApi.Models;
+using NLog;
+using NLog.Web;
 
 namespace SWIFT_MT799_WebApi
 {
@@ -13,31 +15,54 @@ namespace SWIFT_MT799_WebApi
         // TODO:: ADD logging
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            // Early init of NLog to allow startup and exception logging, before host is built
+            var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+            logger.Debug("init main");
 
-            // Add services to the container.
-
-            ConfigureServices(builder);
-
-            var app = builder.Build();
-
-            EnsureDataStorageExistence(app);
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            try
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+
+                var builder = WebApplication.CreateBuilder(args);
+
+                // Add services to the container.
+
+                ConfigureServices(builder);
+
+                // NLog: Setup NLog for Dependency injection
+                //builder.Logging.ClearProviders();
+                builder.Host.UseNLog();
+
+                var app = builder.Build();
+
+                EnsureDataStorageExistence(app);
+
+                // Configure the HTTP request pipeline.
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
+                }
+
+                app.UseHttpsRedirection();
+
+                app.UseAuthorization();
+
+
+                app.MapControllers();
+
+                app.Run();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+            catch (Exception exception)
+            {
+                // NLog: catch setup errors
+                logger.Error(exception, "Stopped program because of exception");
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                NLog.LogManager.Shutdown();
+            }
         }
 
         private static void EnsureDataStorageExistence(WebApplication app)
