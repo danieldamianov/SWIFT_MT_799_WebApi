@@ -37,24 +37,11 @@ This API uses the OpenAPI 3.0.1 specification.
 ```http
 GET /api/get-messages-from-sender/1234
 ```
-
-
-
-
-
-
-
-### **Save Message Endpoint**
-
-This section provides detailed information about the **Save Message** endpoint of the SWIFT MT799 Web API.
-
-### Endpoint
+### 2. **Save Message**
 
 **Endpoint:** `/api/save`  
 **Method:** `POST`  
 **Tags:** `SaveMessage`
-
-### Request
 
 #### Request Body
 
@@ -94,36 +81,4 @@ Content-Type: text/plain
   "messageAuthenticationCode": "MAC123",
   "checksum": "CHK123"
 }
-
-
-
-
-
-
-
-
-
-
-{
-  "applicationID": "ABC",
-  "serviceID": "XYZ",
-  "senderBankCode": "1234",
-  "senderCountryCode": "US",
-  "senderLocationCode": "NY",
-  "senderLogicalTerminal": "ABCD",
-  "senderSessionNumber": "001",
-  "senderSequenceNumber": "0001",
-  "inputTime": "2024-08-03T12:00:00Z",
-  "receiverBankCode": "5678",
-  "receiverCountryCode": "GB",
-  "receiverLocationCode": "LD",
-  "receiverLogicalTerminal": "EFGH",
-  "receiverBranchCode": "0001",
-  "messageInputReference": "REF123",
-  "messagePriority": "High",
-  "transactionReferenceNumber": "TXN123456",
-  "relatedReference": "REL123456",
-  "narrativeText": "Sample message text",
-  "messageAuthenticationCode": "MAC123",
-  "checksum": "CHK123"
-}
+```
