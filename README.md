@@ -45,7 +45,7 @@ GET /api/get-messages-from-sender/XXXX
 
 #### Example Request
 
-```http
+```
 POST /api/save
 Content-Type: text/plain
 
