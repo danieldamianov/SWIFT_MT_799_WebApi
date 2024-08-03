@@ -9,6 +9,7 @@ namespace Database
     public class SWIFT_MT799_WebApi_SQLiteDataProvider : ISWIFT_MT799_WebApiDataProvider
     {
         private readonly ILogger<SWIFT_MT799_WebApi_SQLiteDataProvider> logger;
+
         public SWIFT_MT799_WebApi_SQLiteDataProvider(ILogger<SWIFT_MT799_WebApi_SQLiteDataProvider> logger)
         {
             this.logger = logger;
@@ -70,6 +71,9 @@ namespace Database
                 }
             }
 
+            this.logger.LogInformation($"Successfully retrieved {result.Count} messages " +
+                $"with sender bank {senderBankCode} from the database");
+
             return result;
         }
 
@@ -88,9 +92,20 @@ namespace Database
                     insertCommand.Parameters.AddWithValue($"@{property.Name}", value);
                 }
 
-                var rowsAffected = await insertCommand.ExecuteNonQueryAsync();
+                int rowsAffected;
+                
+                try
+                {
+                    rowsAffected = await insertCommand.ExecuteNonQueryAsync();
+                }
+                catch (Microsoft.Data.Sqlite.SqliteException)
+                {
+                    LogUnsuccessfulMessageSaving(message);
 
-                if(rowsAffected > 0)
+                    return false;
+                }
+
+                if (rowsAffected > 0)
                 {
                     this.logger.LogInformation($"Message:" +
                     $" TransactionReferenceNumber - \"{message.TransactionReferenceNumber}\" " +
@@ -100,13 +115,18 @@ namespace Database
                     return true;
                 }
 
-                this.logger.LogError($"An error occurred while executing" +
-                    $" the sql query for saving message:" +
-                    $" TransactionReferenceNumber - \"{message.TransactionReferenceNumber}\" " +
-                    $" MessageInputReference - \"{message.MessageInputReference}\" ");
+                LogUnsuccessfulMessageSaving(message);
 
                 return false;
             }
+        }
+
+        private void LogUnsuccessfulMessageSaving(SWIFT_MT799_Message_Model message)
+        {
+            this.logger.LogError($"An error occurred while executing" +
+                                $" the sql query for saving message:" +
+                                $" TransactionReferenceNumber - \"{message.TransactionReferenceNumber}\" " +
+                                $" MessageInputReference - \"{message.MessageInputReference}\" ");
         }
     }
 }
