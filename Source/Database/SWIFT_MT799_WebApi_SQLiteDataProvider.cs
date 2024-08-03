@@ -1,86 +1,17 @@
 ﻿using ApplicationLogic.Interfaces;
 using ApplicationLogic.Models;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace Database
 {
     public class SWIFT_MT799_WebApi_SQLiteDataProvider : ISWIFT_MT799_WebApiDataProvider
     {
-        public SWIFT_MT799_WebApi_SQLiteDataProvider()
+        private readonly ILogger<SWIFT_MT799_WebApi_SQLiteDataProvider> logger;
+        public SWIFT_MT799_WebApi_SQLiteDataProvider(ILogger<SWIFT_MT799_WebApi_SQLiteDataProvider> logger)
         {
-            //using (var connection = new SqliteConnection("Data Source=hello.db"))
-            //{
-            //    connection.Open();
-            //
-            //    var command = connection.CreateCommand();
-            //    command.CommandText =
-            //    @"
-            //        CREATE TABLE user (
-            //            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            //            name TEXT NOT NULL
-            //        );
-            //
-            //        INSERT INTO user
-            //        VALUES (1, 'Brice'),
-            //               (2, 'Alexander'),
-            //               (3, 'Nate');
-            //    ";
-            //    command.ExecuteNonQuery();
-            //
-            //    Console.Write("Name: ");
-            //    var name = Console.ReadLine();
-            //
-            //    #region snippet_Parameter
-            //    command.CommandText =
-            //    @"
-            //        INSERT INTO user (name)
-            //        VALUES ($name)
-            //    ";
-            //    command.Parameters.AddWithValue("$name", name);
-            //    #endregion
-            //    command.ExecuteNonQuery();
-            //
-            //    command.CommandText =
-            //    @"
-            //        SELECT last_insert_rowid()
-            //    ";
-            //    var newId = (long)command.ExecuteScalar();
-            //
-            //    Console.WriteLine($"Your new user ID is {newId}.");
-            //}
-            //
-            //Console.Write("User ID: ");
-            //var id = int.Parse(Console.ReadLine());
-            //
-            //#region snippet_HelloWorld
-            //using (var connection = new SqliteConnection("Data Source=hello.db"))
-            //{
-            //    connection.Open();
-            //
-            //    var command = connection.CreateCommand();
-            //    command.CommandText =
-            //    @"
-            //        SELECT name
-            //        FROM user
-            //        WHERE id = $id
-            //    ";
-            //    command.Parameters.AddWithValue("$id", id);
-            //
-            //    using (var reader = command.ExecuteReader())
-            //    {
-            //        while (reader.Read())
-            //        {
-            //            var name = reader.GetString(0);
-            //
-            //            Console.WriteLine($"Hello, {name}!");
-            //        }
-            //    }
-            //}
-            //#endregion
-            //
-            //// Clean up
-            //File.Delete("hello.db");
+            this.logger = logger;
         }
 
         public bool EnsureDataStorageExists()
@@ -157,9 +88,24 @@ namespace Database
                     insertCommand.Parameters.AddWithValue($"@{property.Name}", value);
                 }
 
-                var result = await insertCommand.ExecuteNonQueryAsync();
+                var rowsAffected = await insertCommand.ExecuteNonQueryAsync();
 
-                return result > 0;
+                if(rowsAffected > 0)
+                {
+                    this.logger.LogInformation($"Message:" +
+                    $" TransactionReferenceNumber - \"{message.TransactionReferenceNumber}\" " +
+                    $" MessageInputReference - \"{message.MessageInputReference}\" " +
+                    $"successfully saved to database.");
+
+                    return true;
+                }
+
+                this.logger.LogError($"An error occurred while executing" +
+                    $" the sql query for saving message:" +
+                    $" TransactionReferenceNumber - \"{message.TransactionReferenceNumber}\" " +
+                    $" MessageInputReference - \"{message.MessageInputReference}\" ");
+
+                return false;
             }
         }
     }

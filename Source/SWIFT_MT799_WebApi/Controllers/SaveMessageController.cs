@@ -10,12 +10,10 @@ namespace SWIFT_MT799_WebApi.Controllers
     public class SaveMessageController : ControllerBase
     {
 
-        private readonly ILogger<SaveMessageController> _logger;
         private readonly IMediator mediator;
 
-        public SaveMessageController(ILogger<SaveMessageController> logger, IMediator mediator)
+        public SaveMessageController(IMediator mediator)
         {
-            this._logger = logger;
             this.mediator = mediator;
         }
 

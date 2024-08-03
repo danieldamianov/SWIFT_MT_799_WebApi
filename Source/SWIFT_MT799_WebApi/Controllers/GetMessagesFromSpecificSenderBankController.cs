@@ -10,13 +10,10 @@ namespace SWIFT_MT799_WebApi.Controllers
     public class GetMessagesFromSpecificSenderBankController : ControllerBase
     {
 
-        private readonly ILogger<GetMessagesFromSpecificSenderBankController> _logger;
         private readonly IMediator mediator;
 
-        public GetMessagesFromSpecificSenderBankController
-            (ILogger<GetMessagesFromSpecificSenderBankController> logger, IMediator mediator)
+        public GetMessagesFromSpecificSenderBankController(IMediator mediator)
         {
-            this._logger = logger;
             this.mediator = mediator;
         }
 
