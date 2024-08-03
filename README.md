@@ -36,6 +36,7 @@ This API uses the OpenAPI 3.0.1 specification.
 
 ```http
 GET /api/get-messages-from-sender/1234
+```
 
 
 
@@ -43,9 +44,7 @@ GET /api/get-messages-from-sender/1234
 
 
 
-
-
-## Save Message Endpoint
+### **Save Message Endpoint**
 
 This section provides detailed information about the **Save Message** endpoint of the SWIFT MT799 Web API.
 
