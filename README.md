@@ -2,19 +2,14 @@
 
 ## Overview
 
-The SWIFT MT799 Web API provides endpoints for retrieving and saving SWIFT MT799 messages. The API follows the OpenAPI 3.0.1 specification and is designed to interact with SWIFT MT799 messages using a RESTful approach.
-
-## API Specification
-
-This API uses the OpenAPI 3.0.1 specification.
+The SWIFT MT799 Web API provides endpoints for retrieving and saving SWIFT MT799 messages.
 
 ## Endpoints
 
 ### 1. **Get Messages from Sender Bank**
 
 **Endpoint:** `/api/get-messages-from-sender/{bankCode}`  
-**Method:** `GET`  
-**Tags:** `GetMessagesFromSpecificSenderBank`
+**Method:** `GET`
 
 #### Parameters
 
@@ -24,31 +19,27 @@ This API uses the OpenAPI 3.0.1 specification.
 #### Responses
 
 - **200 OK**
-  - **Content Types:**
+  - **Content Type:**
     - `application/json`
-    - `text/plain`
-    - `text/json`
   - **Response Schema:**
     - **Type:** `array`
-    - **Items:** [SWIFT_MT799_Message_Model](#swift_mt799_message_model)
+    - **Items:** [SwiftMT799 Message]
 
 #### Example Request
 
 ```http
-GET /api/get-messages-from-sender/1234
+GET /api/get-messages-from-sender/XXXX
 ```
 ### 2. **Save Message**
 
 **Endpoint:** `/api/save`  
-**Method:** `POST`  
-**Tags:** `SaveMessage`
+**Method:** `POST`
 
 #### Request Body
 
 - **Content Types:**
-  - `application/json`
   - `text/plain`
-  - `text/json`
+    
 - **Schema:**
   - **Type:** `string`
 
@@ -58,27 +49,54 @@ GET /api/get-messages-from-sender/1234
 POST /api/save
 Content-Type: text/plain
 
-{
-  "applicationID": "ABC",
-  "serviceID": "XYZ",
-  "senderBankCode": "1234",
-  "senderCountryCode": "US",
-  "senderLocationCode": "NY",
-  "senderLogicalTerminal": "ABCD",
-  "senderSessionNumber": "001",
-  "senderSequenceNumber": "0001",
-  "inputTime": "2024-08-03T12:00:00Z",
-  "receiverBankCode": "5678",
-  "receiverCountryCode": "GB",
-  "receiverLocationCode": "LD",
-  "receiverLogicalTerminal": "EFGH",
-  "receiverBranchCode": "0001",
-  "messageInputReference": "REF123",
-  "messagePriority": "High",
-  "transactionReferenceNumber": "TXN123456",
-  "relatedReference": "REL123456",
-  "narrativeText": "Sample message text",
-  "messageAuthenticationCode": "MAC123",
-  "checksum": "CHK123"
-}
+{1:F01PRCBBGSFAXXX1111111111}{2:O7991111111111ABGRSWACAXXX11111111111111111111N}{4:
+:20:67-C111111-KNTRL 
+:21:30-111-1111111
+:79:NA VNIMANIETO NA: OTDEL BANKOVI GARANTSII
+.
+OTNOSNO: POTVARJDENIE NA AVTENTICHNOST NA
+         PRIDRUJITELNO PISMO KAM ISKANE ZA
+         PLASHTANE PO BANKOVA GARANCIA
+.
+UVAJAEMI KOLEGI,
+.
+UVEDOMJAVAME VI, CHE IZPRASHTAME ISKANE ZA 
+PLASHTANE NA STOYNOST BGN 3.100,00, PREDSTAVENO 
+OT NASHIA KLIENT.
+.
+S NASTOYASHTOTO POTVARZHDAVAME AVTENTICHNOSTTA NA 
+PODPISITE VARHU PISMOTO NI, I CHE TEZI LICA SA 
+UPALNOMOSHTENI DA PODPISVAT TAKAV DOKUMENT OT 
+IMETO NA BANKATA AD.
+.
+POZDRAVI,
+TARGOVSKO FINANSIRANE
+-}{5:{MAC:00000000}{CHK:111111111111}}
 ```
+## Database Model
+
+The following section describes the database model for storing SWIFT MT799 messages. All fields in this model are of type `string`.
+
+### Fields
+
+- **`applicationID`**: The identifier for the application.
+- **`serviceID`**: The identifier for the service.
+- **`senderBankCode`**: The code of the sender bank.
+- **`senderCountryCode`**: The country code of the sender.
+- **`senderLocationCode`**: The location code of the sender.
+- **`senderLogicalTerminal`**: The logical terminal of the sender.
+- **`senderSessionNumber`**: The session number of the sender.
+- **`senderSequenceNumber`**: The sequence number of the sender.
+- **`inputTime`**: The timestamp when the message was input.
+- **`receiverBankCode`**: The code of the receiver bank.
+- **`receiverCountryCode`**: The country code of the receiver.
+- **`receiverLocationCode`**: The location code of the receiver.
+- **`receiverLogicalTerminal`**: The logical terminal of the receiver.
+- **`receiverBranchCode`**: The branch code of the receiver.
+- **`messageInputReference`**: The input reference for the message.
+- **`messagePriority`**: The priority level of the message.
+- **`transactionReferenceNumber`**: The reference number for the transaction.
+- **`relatedReference`**: The reference number related to the transaction.
+- **`narrativeText`**: The narrative text included in the message.
+- **`messageAuthenticationCode`**: The authentication code for the message.
+- **`checksum`**: The checksum for validating the message integrity.
