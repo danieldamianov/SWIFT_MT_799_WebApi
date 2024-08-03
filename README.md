@@ -73,6 +73,49 @@ POZDRAVI,
 TARGOVSKO FINANSIRANE
 -}{5:{MAC:00000000}{CHK:111111111111}}
 ```
+## Example SWIFT MT799 Messages
+
+This section provides sample SWIFT MT799 messages for testing purposes.
+
+### Messages from Bank Code PRCB
+
+#### Message 1
+```plaintext
+{1:F01PRCBBGSFAXXX6666666666}{2:O7996666666666ABGRSWACAXXX66666666666666666666N}{4:
+:20:67-C666666-KNTRL 
+:21:30-666-6666666
+:79:Testing message 5
+-}{5:{MAC:00000000}{CHK:666666666666}}
+```
+#### Message 2
+```plaintext
+{1:F01PRCBBGSFAXXX1234567890}{2:O7991234567890ABGRSWACAXXX12345678901234567890N}{4:
+:20:67-C123456-KNTRL 
+:21:30-123-1234567
+:79:Testing message 13
+-}{5:{MAC:00000000}{CHK:123456789012}}
+```
+
+### Messages from Bank Code JJJJ
+
+#### Message 3
+```plaintext
+{1:F01JJJJBGSFAXXX2222222222}{2:O7992222222222ABGRSWACAXXX22222222222222222222N}{4:
+:20:67-C222222-KNTRL 
+:21:30-222-2222222
+:79:message from bank JJJJ number 1
+-}{5:{MAC:00000000}{CHK:222222222222}}
+```
+
+#### Message 4
+```plaintext
+{1:F01JJJJBGSFAXXX4444444444}{2:O7994444444444ABGRSWACAXXX44444444444444444444N}{4:
+:20:67-C444444-KNTRL 
+:21:30-444-4444444
+:79:message from bank JJJJ number 3
+-}{5:{MAC:00000000}{CHK:444444444444}}
+```
+
 ## Database Model
 
 The following section describes the database model for storing SWIFT MT799 messages. All fields in this model are of type `string`.
