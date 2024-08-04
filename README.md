@@ -55,7 +55,7 @@ Content-Type: text/plain
 :79:NA VNIMANIETO NA: OTDEL BANKOVI GARANTSII
 -}{5:{MAC:00000000}{CHK:111111111111}}
 ```
-## Example SWIFT MT799 Messages
+## Instructions for testing the project.
 
 This section provides sample SWIFT MT799 messages for testing purposes.
 Instructions for testing:
