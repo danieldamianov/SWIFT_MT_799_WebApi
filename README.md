@@ -39,8 +39,10 @@ The SWIFT MT799 Web API provides endpoints for retrieving and saving SWIFT MT799
 
 #### Example Request
 
-```http
-GET /api/get-messages-from-sender/XXXX
+```bash
+curl -X 'GET' \
+  'https://localhost:7053/api/get-messages-from-sender/JJJJ' \
+  -H 'accept: text/plain'
 ```
 ### 2. **Save Message**
 
