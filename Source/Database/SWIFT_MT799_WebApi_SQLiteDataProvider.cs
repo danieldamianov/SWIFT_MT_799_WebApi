@@ -33,8 +33,7 @@ namespace Database
 
         public async Task<ICollection<SWIFT_MT799_Message_Model>> GetMessagesFromSpecificSenderBankAsync(string senderBankCode)
         {
-            // TODO: make it asychronous
-            // TODO: implement correctly
+
             var result = new List<SWIFT_MT799_Message_Model>();
 
             using (var connection = new SqliteConnection($"Data Source={Constants.FILE_PATH}"))

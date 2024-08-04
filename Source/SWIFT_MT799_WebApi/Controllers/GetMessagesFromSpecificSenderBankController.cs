@@ -17,14 +17,12 @@ namespace SWIFT_MT799_WebApi.Controllers
             this.mediator = mediator;
         }
 
-        // TODO:: Return IActionResult
         [HttpGet("{bankCode}", Name = "GetMessagesFromSpecificSenderBank")]
         public async Task<ICollection<SWIFT_MT799_Message_Model>> GetMessages(string bankCode)
         {
             ICollection<SWIFT_MT799_Message_Model> response = 
                 await this.mediator.Send(new GetMessagesFromSpecificSenderBankQuery(bankCode));
 
-            // TODO:: RETURN SOME IACTION RESULT
             return response;
         }
     }

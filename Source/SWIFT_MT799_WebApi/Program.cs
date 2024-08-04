@@ -12,10 +12,10 @@ namespace SWIFT_MT799_WebApi
 {
     public class Program
     {
-        // TODO:: ADD logging
+
         public static void Main(string[] args)
         {
-            // Early init of NLog to allow startup and exception logging, before host is built
+            
             var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
             logger.Debug("init main");
 
@@ -24,19 +24,14 @@ namespace SWIFT_MT799_WebApi
 
                 var builder = WebApplication.CreateBuilder(args);
 
-                // Add services to the container.
-
                 ConfigureServices(builder);
 
-                // NLog: Setup NLog for Dependency injection
-                //builder.Logging.ClearProviders();
                 builder.Host.UseNLog();
 
                 var app = builder.Build();
 
                 EnsureDataStorageExistence(app);
 
-                // Configure the HTTP request pipeline.
                 if (app.Environment.IsDevelopment())
                 {
                     app.UseSwagger();
@@ -60,7 +55,6 @@ namespace SWIFT_MT799_WebApi
             }
             finally
             {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 NLog.LogManager.Shutdown();
             }
         }
@@ -77,18 +71,14 @@ namespace SWIFT_MT799_WebApi
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
-                c.OperationFilter<TextPlainOperationFilter>(); // Register the custom filter
+                c.OperationFilter<TextPlainOperationFilter>();
             });
 
-            // TODO:: CHECK IF THIS WORKS FINE
             ApplicationServiceRegistration.AddApplication(builder.Services);
             DatabaseServiceRegistration.AddDatabase(builder.Services);
-            // builder.Services.AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>();
-            // TODO:: AddAplication
         }
     }
 }

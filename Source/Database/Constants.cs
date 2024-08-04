@@ -36,7 +36,6 @@ namespace Database
     "PRIMARY KEY (TransactionReferenceNumber, MessageInputReference)" +
     ");";
 
-        // TODO:: format
         internal static string INSERT_MESSAGE_COMMAND = @"
                     INSERT INTO SWIFT_MT799_Messages (
                         ApplicationID, ServiceID, SenderBankCode, SenderCountryCode, SenderLocationCode, 

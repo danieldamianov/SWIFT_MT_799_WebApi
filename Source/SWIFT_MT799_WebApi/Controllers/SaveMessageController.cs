@@ -21,7 +21,7 @@ namespace SWIFT_MT799_WebApi.Controllers
         [Consumes("text/plain")]
         public async Task<bool> Save()
         {
-            // TODO::
+
             string message;
             
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
@@ -31,7 +31,6 @@ namespace SWIFT_MT799_WebApi.Controllers
 
             bool respone = await this.mediator.Send(new SaveMessageCommand(message));
 
-            // TODO:: RETURN SOME IACTION RESULT
             return respone;
         }
     }

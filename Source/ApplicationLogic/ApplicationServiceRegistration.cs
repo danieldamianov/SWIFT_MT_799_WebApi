@@ -16,7 +16,6 @@ namespace ApplicationLogic
         public static void AddApplication(IServiceCollection services)
         {
             services
-                // TODO:: .AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
                 .AddSingleton<ISwiftMT799Parser, SwiftMT799Parser>()
                 .AddAutoMapper(typeof(MappingProfile)); ;
