@@ -57,15 +57,16 @@ GET /api/get-messages-from-sender/XXXX
 
 #### Example Request
 
-```
-POST /api/save
-Content-Type: text/plain
-
-{1:F01PRCBBGSFAXXX1111111111}{2:O7991111111111ABGRSWACAXXX11111111111111111111N}{4:
+```bash
+curl -X 'POST' \
+  'https://localhost:7053/api/save' \
+  -H 'accept: text/plain' \
+  -H 'Content-Type: text/plain' \
+  -d '{1:F01PRCBBGSFAXXX1111111111}{2:O7991111111111ABGRSWACAXXX11111111111111111111N}{4:
 :20:67-C111111-KNTRL 
 :21:30-111-1111111
 :79:NA VNIMANIETO NA: OTDEL BANKOVI GARANTSII
--}{5:{MAC:00000000}{CHK:111111111111}}
+-}{5:{MAC:00000000}{CHK:111111111111}}'
 ```
 ## Instructions for testing the project.
 
