@@ -101,6 +101,11 @@ Instructions for testing:
 :79:message from bank JJJJ number 3
 -}{5:{MAC:00000000}{CHK:444444444444}}
 ```
+## Project Relationships Diagram
+
+This diagram illustrates the relationships between the different projects in the solution, emphasizing the central role of the `ApplicationLogic` project.
+
+![Project Relationships Diagram](architecture.png)
 
 ## Database Model
 
