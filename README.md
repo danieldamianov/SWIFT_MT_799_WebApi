@@ -4,6 +4,18 @@
 
 The SWIFT MT799 Web API provides endpoints for retrieving and saving SWIFT MT799 messages.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Endpoints](#endpoints)
+  - [Get Messages from Sender Bank](#get-messages-from-sender-bank)
+  - [Save Message](#save-message)
+- [Instructions for Testing the Project](#instructions-for-testing-the-project)
+  - [Messages from Bank Code PRCB](#messages-from-bank-code-prcb)
+  - [Messages from Bank Code JJJJ](#messages-from-bank-code-jjjj)
+- [Project Relationships Diagram](#project-relationships-diagram)
+- [Database Model](#database-model)
+
 ## Endpoints
 
 ### 1. **Get Messages from Sender Bank**
