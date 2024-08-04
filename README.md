@@ -58,6 +58,10 @@ Content-Type: text/plain
 ## Example SWIFT MT799 Messages
 
 This section provides sample SWIFT MT799 messages for testing purposes.
+Instructions for testing:
+1. Run the app.
+2. Using Endpoint 2 - **Save Message**, save the following four messages, each with separate request.
+3. Using Endpoint 1 - **Get Messages from Sender Bank**, retrieve the messages by sender bank.
 
 ### Messages from Bank Code PRCB
 
