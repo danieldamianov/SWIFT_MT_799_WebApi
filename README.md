@@ -117,7 +117,7 @@ Instructions for testing:
 
 This diagram illustrates the relationships between the different projects in the solution, emphasizing the central role of the `ApplicationLogic` project.
 
-![Project Relationships Diagram](architecture.png)
+![Project Relationships Diagram](readme-assets/architecture.png)
 
 ## Database Model
 
