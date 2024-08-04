@@ -51,5 +51,14 @@ namespace Database
                         @ReceiverBranchCode, @MessageInputReference, @MessagePriority, @TransactionReferenceNumber, 
                         @RelatedReference, @NarrativeText, @MessageAuthenticationCode, @Checksum
                     )";
+
+        internal static string GET_MESSAGES_BY_SENDER_COMMAND = @"
+                    SELECT ApplicationID, ServiceID, SenderBankCode, SenderCountryCode, SenderLocationCode,
+                           SenderLogicalTerminal, SenderSessionNumber, SenderSequenceNumber, InputTime,
+                           ReceiverBankCode, ReceiverCountryCode, ReceiverLocationCode, ReceiverLogicalTerminal,
+                           ReceiverBranchCode, MessageInputReference, MessagePriority, TransactionReferenceNumber,
+                           RelatedReference, NarrativeText, MessageAuthenticationCode, Checksum
+                    FROM SWIFT_MT799_Messages
+                    WHERE SenderBankCode = @SenderBankCode";
     }
 }
